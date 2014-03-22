@@ -2,7 +2,7 @@
 //	alert(renderObj.width.toString());
 //	alert(renderObj.height.toString());
 
-var baseH=130; //линия построек
+var baseH=680; //линия построек
 var rA=110; //attack rockets
 var rD=213; //defend
 
@@ -11,7 +11,7 @@ var money=100;
 var dMaterial=1;
 var dMoney=1;
 
-var mouse = {x: 0, y:0}; //канавы и их друзья
+var mouse = {x: 0, y:0, cx: 0, cy: 0}; //канавы и их друзья
 var maxSize = {}; //сюда размеры матрицы
 var render;
 var renderObj;
@@ -19,23 +19,28 @@ var textRender;
 
 var obj=new Array(); //объекты
 var proto=new Array(); //прототипы
+var curFollow=new Array();
 
 function initialize() 
 {    
 	renderObj=document.getElementById('canv');
+	
 	render=renderObj.getContext("2d");
-	maxSize.x=renderObj.width;
-	maxSize.y=renderObj.height;
+	maxSize.x=renderObj.width=1200;
+	maxSize.y=renderObj.height=800;
 	
 	document.body.onmousemove = function(e) 
 	{
         e = e || window.event;
         mouse.x = e.clientX;
         mouse.y = e.clientY;
+	
+		mouse.cx=mouse.x-renderObj.offsetLeft;
+		mouse.cy=mouse.y-renderObj.offsetTop;
 	}
 	
 	loadProto();
-	buildObj(0, 0, maxSize.x, maxSize.y, proto[0]);
+	//buildObj(0, 0, maxSize.x, maxSize.y, proto[0]);
 	
 	setInterval('timer()', 500);
 	setInterval('renderFunc ()', 30);
@@ -67,9 +72,18 @@ function writeInfo ()
 
 function renderFunc ()
 {
+	render.clearRect(0,0, renderObj.width, renderObj.height);
+
 	for(var i=0; i<obj.length; i++)
 	{
 		obj[i].draw();
+		obj[i].doF();
+	}
+	
+	for(var i=0; i<curFollow.length; i++)
+	{
+		curFollow[i].draw();
+		curFollow[i].doF();
 	}
 }
 
@@ -82,9 +96,18 @@ function timer()
 
 function buildClick(n)
 {
-	if(canBuildProto(proto[n-1]))
+	curFollow.splice(0, curFollow.length);
+	if(proto[n-1]!=null) 
 	{
-		console.log('sooo');
+		var x=proto[n-1];
+		if(canBuildProto(x))
+		{
+			var x = createObj (0, baseH, x);
+			var zone = createObj(0, baseH, proto[6]);
+			zone.doF=x.doF=function(){this.x=mouse.cx-25;};
+			curFollow.push(zone);
+			curFollow.push(x);
+		}	
 	}
 }
 

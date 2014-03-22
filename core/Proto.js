@@ -1,26 +1,30 @@
-var protoObj =
+var protoDraw =
 {
 	"draw": function()
 	{
 		render.drawImage(this.tex, this.x, this.y, this.w, this.h);
-	}
+	},
+	
+	"doF": this.func
 }
 
-function createObj (x1, y1, x2, y2, Proto)
+function createObj (x1, y1, Proto)
 {
 	var Obj=
 	{
 		x:x1,
 		y:y1,
-		w:x2-x1,
-		h:y2-y1,
-		tex: Proto.Tex
+		w:Proto.w,
+		h:Proto.h,
+		tex: Proto.Tex,
+		doF:function(){}
 	}
-	Obj.__proto__=protoObj;
+	
+	Obj.__proto__=protoDraw;
 	return Obj;
 }
 
-function createUnitPrototype (cMoney, cMaterial, dMoney, dMaterial, TexUrl)
+function createEmptyPrototype (TexUrl, standartW, standartH)
 {
 	function addTex (url)
 	{
@@ -28,15 +32,24 @@ function createUnitPrototype (cMoney, cMaterial, dMoney, dMaterial, TexUrl)
 		img.src=url;
 		return img;
 	}
-
+	
 	var obj =
 	{
-		cMoney: cMoney,
-		cMaterial: cMaterial,
-		dMoney:dMoney,
-		dMaterial:dMoney,
-		Tex: addTex(TexUrl)
+		Tex: addTex(TexUrl),
+		w: standartW,
+		h: standartH
 	}
+	
+	return obj;
+}
+
+function createBuildPrototype (cMoney, cMaterial, dMoney, dMaterial, TexUrl, standartW, standartH)
+{
+	var obj=createEmptyPrototype(TexUrl, standartW, standartH);
+	obj.cMoney=cMoney;
+	obj.cMaterial=cMaterial;
+	obj.dMoney=dMoney;
+	obj.dMaterial=dMaterial;
 	return obj;
 }
 
@@ -54,6 +67,6 @@ function buildObj (x1, y1, x2, y2, Proto) //это изменит ресурсн
 		material-=Proto.cMaterial;
 		dMoney+=Proto.dMoney;
 		dMaterial+=Proto.dMaterial;
-		obj.push(createObj(x1, y1, x2, y2, Proto));
+		obj.push(createObj(x1, y1, Proto));
 	}
 }
