@@ -2,25 +2,6 @@
 //	alert(renderObj.width.toString());
 //	alert(renderObj.height.toString());
 
-var baseH=680; //линия построек
-var rA=110; //attack rockets
-var rD=213; //defend
-
-var material=100; //ресурсы
-var money=100;
-var dMaterial=1;
-var dMoney=1;
-
-var mouse = {x: 0, y:0, cx: 0, cy: 0}; //канавы и их друзья
-var maxSize = {}; //сюда размеры матрицы
-var render;
-var renderObj;
-var textRender;
-
-var obj=new Array(); //объекты
-var proto=new Array(); //прототипы
-var curFollow=new Array();
-
 function initialize() 
 {    
 	renderObj=document.getElementById('canv');
@@ -28,6 +9,7 @@ function initialize()
 	render=renderObj.getContext("2d");
 	maxSize.x=renderObj.width=1200;
 	maxSize.y=renderObj.height=800;
+	maxSize.playerZone=440;
 	
 	document.body.onmousemove = function(e) 
 	{
@@ -40,9 +22,8 @@ function initialize()
 	}
 	
 	loadProto();
-	//buildObj(0, 0, maxSize.x, maxSize.y, proto[0]);
 	
-	setInterval('timer()', 500);
+	setInterval('timer()', 200);
 	setInterval('renderFunc ()', 30);
 }
 
@@ -89,13 +70,36 @@ function renderFunc ()
 
 function timer()
 {
-	material+=dMaterial;
-	money+=dMoney;
+	for(var i=0; i<obj.length; i++)
+	{
+		obj[i].timerF();
+	}
+	
 	writeInfo();
+}
+
+function destroyClick()
+{
+	weBuilding=false;
+	weDestroy=true;
+	curFollow.splice(0, curFollow.length);
+	var x = createObj (mouse.cx, mouse.cy, proto[8]);
+	x.doF=
+	function()
+	{
+		this.x=mouse.cx-sizes.bw/2; 
+		this.y=mouse.cy-sizes.bh/2; 
+		if(!testObjs(this.x)) this.tex=proto[9].Tex;
+		else this.tex=proto[8].Tex;
+	};
+	curFollow.push(x);
 }
 
 function buildClick(n)
 {
+	tempBuild=n-1;
+	weBuilding=false;
+	weDestroy=false;
 	curFollow.splice(0, curFollow.length);
 	if(proto[n-1]!=null) 
 	{
@@ -104,11 +108,65 @@ function buildClick(n)
 		{
 			var x = createObj (0, baseH, x);
 			var zone = createObj(0, baseH, proto[6]);
-			zone.doF=x.doF=function(){this.x=mouse.cx-25;};
+			x.doF=function(){this.x=mouse.cx-sizes.bw/2;};
+			zone.doF=function()
+			{
+				this.x=mouse.cx-sizes.bw/2; 
+				if(placeTest(this.x)) this.tex=proto[6].Tex;
+				else this.tex=proto[7].Tex;
+			};
 			curFollow.push(zone);
 			curFollow.push(x);
+			weBuilding=true;
 		}	
 	}
+}
+
+function canvClick()
+{
+	if(weBuilding)
+	{
+		var a=curFollow[1];
+		buildObj (a.x, a.y, proto[tempBuild]);
+		weBuilding=false;
+		curFollow.splice(0, curFollow.length);
+		return;
+	}
+	
+	if(weDestroy)
+	{
+		weDestroy=false;
+		findAndDel (curFollow[0].x)
+		curFollow.splice(0, curFollow.length);
+		return;
+	}
+}
+
+function findAndDel (x)
+{
+	for(var i=0; i<obj.length; i++)
+	{
+		if(Math.abs(obj[i].x-x)<buildDistanse) 
+		{
+			obj.splice(i, 1);
+			return;
+		}
+	}
+}
+
+function testObjs (x)
+{
+	for(var i=0; i<obj.length; i++)
+	{
+		if(Math.abs(obj[i].x-x)<buildDistanse) return false;
+	}
+	return true;
+}
+
+function placeTest(x)
+{
+	if(x>maxSize.playerZone) return false;
+	return testObjs (x);
 }
 
 function showInfo(n)

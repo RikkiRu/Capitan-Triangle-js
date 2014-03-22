@@ -5,7 +5,8 @@ var protoDraw =
 		render.drawImage(this.tex, this.x, this.y, this.w, this.h);
 	},
 	
-	"doF": this.func
+	"doF": this.doF,
+	"timerF": this.timerF
 }
 
 function createObj (x1, y1, Proto)
@@ -17,8 +18,14 @@ function createObj (x1, y1, Proto)
 		w:Proto.w,
 		h:Proto.h,
 		tex: Proto.Tex,
-		doF:function(){}
+		doF:function(){},
+		timerF:function(){}
 	}
+	
+	if(Proto.doF!=null) Obj.doF=Proto.doF;
+	if(Proto.timerF!=null) Obj.timerF=Proto.timerF;
+	if(Proto.dMoney!=null) Obj.dMoney=Proto.dMoney;
+	if(Proto.dMaterial!=null) Obj.dMaterial=Proto.dMaterial;
 	
 	Obj.__proto__=protoDraw;
 	return Obj;
@@ -48,6 +55,7 @@ function createBuildPrototype (cMoney, cMaterial, dMoney, dMaterial, TexUrl, sta
 	var obj=createEmptyPrototype(TexUrl, standartW, standartH);
 	obj.cMoney=cMoney;
 	obj.cMaterial=cMaterial;
+	obj.timerF=function(){money+=this.dMoney; material+=this.dMaterial;}
 	obj.dMoney=dMoney;
 	obj.dMaterial=dMaterial;
 	return obj;
@@ -59,14 +67,12 @@ function canBuildProto(Proto)
 	return false;
 }
 
-function buildObj (x1, y1, x2, y2, Proto) //это изменит ресурсность и запихнет объект в список
+function buildObj (x1, y1, Proto) //это изменит ресурсность и запихнет объект в список
 {
-	if(canBuildProto(Proto))
+	if(canBuildProto(Proto) && placeTest(x1))
 	{
 		money-=Proto.cMoney;
 		material-=Proto.cMaterial;
-		dMoney+=Proto.dMoney;
-		dMaterial+=Proto.dMaterial;
 		obj.push(createObj(x1, y1, Proto));
 	}
 }

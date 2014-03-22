@@ -1,8 +1,31 @@
+var baseH=700; //линия построек
+var rA=110; //attack rockets
+var rD=213; //defend
+
+var material=100; //ресурсы
+var money=100;
+
+var mouse = {}; //канавы и их друзья
+var maxSize = {}; //сюда размеры матрицы
+var render;
+var renderObj;
+var textRender;
+
+var obj=new Array(); //объекты
+var proto=new Array(); //прототипы
+var curFollow=new Array();
+
+var weBuilding=false;
+var weDestroy=false;
+var tempBuild=0;
+
 var sizes =
 {
-	bw: 50,
-	bh: 50
+	bw: 30,
+	bh: 30
 }
+
+var buildDistanse=sizes.bw/2;
 
 function loadProto()
 {
@@ -14,5 +37,7 @@ function loadProto()
 	proto.push(createBuildPrototype(200, 200, 0, 0, 'res/air.png', sizes.bw, sizes.bh)); //5 аэродром
 	proto.push(createEmptyPrototype ('res/bCan.png', sizes.bw, sizes.bh)); //6 зона доступно
 	proto.push(createEmptyPrototype ('res/bNotCan.png', sizes.bw, sizes.bh)); //7 зона не доступно
+	proto.push(createEmptyPrototype ('res/destroy.png', sizes.bw, sizes.bh)); //8 уничтожить
+	proto.push(createEmptyPrototype ('res/destroySel.png', sizes.bw, sizes.bh)); //9 уничтожить выбрано
 }
 
