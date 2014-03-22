@@ -2,7 +2,7 @@
 //	alert(renderObj.width.toString());
 //	alert(renderObj.height.toString());
 
-var baseH=600; //уровень построек
+var baseH=130; //линия построек
 var rA=110; //attack rockets
 var rD=213; //defend
 
@@ -15,9 +15,10 @@ var mouse = {x: 0, y:0}; //канавы и их друзья
 var maxSize = {}; //сюда размеры матрицы
 var render;
 var renderObj;
+var textRender;
 
 var obj=new Array(); //объекты
-var tex=new Array();
+var proto=new Array(); //прототипы
 
 function initialize() 
 {    
@@ -33,47 +34,31 @@ function initialize()
         mouse.y = e.clientY;
 	}
 	
-	loadTexts();
+	loadProto();
+	buildObj(0, 0, maxSize.x, maxSize.y, proto[0]);
 	
-	obj.push(createObj(0, 0, maxSize.x, maxSize.y, 0));
-	
-	setInterval('timer()', 1000);
+	setInterval('timer()', 500);
 	setInterval('renderFunc ()', 30);
 }
 
-function addTex (url)
+function write (x, cx, cy, where, isAdd)
 {
-	var img = new Image();
-	img.src=url;
-	tex.push(img);
+	textRender=document.getElementById(where).getContext("2d");
+	if(!isAdd) textRender.clearRect(0,0, document.getElementById(where).width, document.getElementById(where).height);
+	textRender.fillStyle = "black";
+	textRender.font = "40pt Arial";
+	textRender.fillText(x, cx, cy);
 }
 
-function loadTexts()
+function testAndWrite (x, cx, cy, where)
 {
-	addTex ('res/city.png'); //0
+	var temp='>999';
+	if(x>=0 && x<1000) temp=x.toString();
+	write(temp, cx, cy, where, false);
 }
 
 function writeInfo ()
 {
-	var render;
-	var temp;
-	
-	function setFontAndClear(x)
-	{
-		render=document.getElementById(x).getContext("2d");
-		render.clearRect(0,0, document.getElementById(x).width, document.getElementById(x).height);
-		render.fillStyle = "black";
-		render.font = "40pt Arial";
-	}
-	
-	function testAndWrite (x, cx, cy, where)
-	{
-		setFontAndClear(where);
-		temp='>999';
-		if(x>=0 && x<1000) temp=x.toString();
-		render.fillText(temp, cx, cy);
-	}
-	
 	testAndWrite(money, 100, 140, 'money');
 	testAndWrite(material, 100, 140, 'material');
 	testAndWrite(rA, 180, 120, 'tbA');
@@ -97,6 +82,10 @@ function timer()
 
 function buildClick(n)
 {
+	if(canBuildProto(proto[n-1]))
+	{
+		console.log('sooo');
+	}
 }
 
 function showInfo(n)
@@ -111,15 +100,11 @@ function showInfo(n)
 	inf.style.left=(mouse.x-50).toString()+'px';
 	inf.style.height='50px';
 	
-	switch(n)
-	{
-		case 1: inf.style.backgroundColor='red'; break;
-		case 2: inf.style.backgroundColor='green'; break;
-		case 3: break;
-		case 4: break;
-		case 5: break;
-		case 6: break;
-	}
+	if(canBuildProto(proto[n-1])) inf.style.backgroundColor='green'; 
+	else inf.style.backgroundColor='red';
+	
+	write(proto[n-1].cMoney.toString(), 30, 130, 'InfoBar', false);
+	write(proto[n-1].cMaterial.toString(), 180, 130, 'InfoBar', true);
 }
 
 
