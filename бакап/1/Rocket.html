@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rocket game</title>
+	<style type="text/css">
+	body, html {background-color: #DDDDDD; margin: 0%;}
+	#canv 
+	{
+		margin:0 auto;	
+		width: 800px;
+		height: 600px;
+		position: absolute;
+	}
+	#panel {position: absolute; width: 80%; height: 15%; margin-left: 15%; margin-right: 15%; margin-top: 1%;}
+	
+	#bC 
+	{   
+		margin-top: 1%;
+		background: url(res/buttonC.png) top  no-repeat;
+		width: 50px;
+		height: 50px;
+		display: inline-block;
+		float: left;
+		padding-left: 3%;
+	}
+	
+	#tbA, #tbD 
+	{
+		width: 170px;
+		height: 60px;
+		display: inline-block;
+		float: right;
+		padding-right: 3%;
+	}
+	
+	#tbA:hover, #tbD:hover, #bC:hover {background-position: bottom;}
+	
+	#tbA{background: url(res/attackC.png) top  no-repeat;}
+	#tbD{background: url(res/defendC.png) top  no-repeat;}
+	
+	#resurses
+	{
+		position: absolute;
+		margin-top: 15%;
+		width: 100px;
+		height: 200px;
+		float: left;
+	}
+	
+	</style>
+	<script type="text/javascript" src="RockMain.js"></script>
+</head>
+
+<body onload="initialize()">
+
+	<canvas id="canv" style="background-image: url(res/back.png); background-position: center top; background-size: 100% 100%;">
+	<div id="panel">
+		<canvas id="bC"></canvas>
+		<canvas id="bC"></canvas>
+		<canvas id="bC"></canvas>
+		<canvas id="bC"></canvas>
+		<canvas id="bC"></canvas>
+		<canvas id="bC"></canvas>
+		<canvas id="bC"></canvas>
+		<canvas id="tbA"></canvas>
+		<canvas id="tbD"></canvas>
+	</div>
+	
+	<div id="resurses">
+		<canvas id="money" style="width: 100%; height: 50%; background-image: url(res/money.png); background-position: center top; background-size: 100% 100%;"></canvas>
+		<canvas id="material" style="width: 100%; height: 50%; background-image: url(res/material.png); background-position: center top; background-size: 100% 100%;"></canvas>
+	</div>
+	</canvas>
+	
+</body>
+
+</html>

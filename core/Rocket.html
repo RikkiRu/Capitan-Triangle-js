@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rocket game</title>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+	<script type="text/javascript" src="Proto.js"></script>
+	<script type="text/javascript" src="RockMain.js"></script>
+</head>
+
+<body onload="initialize()">
+
+<div style="margin: 0 auto; width: 1200px; height: 800px;">
+	<canvas id="canv" style="background-image: url(res/back.png);"></canvas>
+	
+	<div id="panel" onmouseout="showInfo(0);">
+		<div id="bC" style="background-image: url(res/bs/b1.png);" onmousemove="showInfo(1)" onclick="buildClick(1)"></div>
+		<div id="bC" style="background-image: url(res/bs/b2.png);" onmousemove="showInfo(2)" onclick="buildClick(2)"></div>
+		<div id="bC" style="background-image: url(res/bs/b3.png);" onmousemove="showInfo(3)" onclick="buildClick(3)"></div>
+		<div id="bC" style="background-image: url(res/bs/b4.png);" onmousemove="showInfo(4)" onclick="buildClick(4)"></div>
+		<div id="bC" style="background-image: url(res/bs/b5.png);" onmousemove="showInfo(5)" onclick="buildClick(5)"></div>
+		<div id="bC" style="background-image: url(res/bs/b6.png);" onmousemove="showInfo(6)" onclick="buildClick(6)"></div>
+		<canvas id="tbA"></canvas>
+		<canvas id="tbD"></canvas>
+	</div>
+	
+	<canvas id="InfoBar"></canvas>
+	
+	<div id="resurses">
+		<canvas id="money" style="width: 100%; height: 50%; background-image: url(res/money.png); background-position: center top; background-size: 100% 100%;"></canvas>
+		<canvas id="material" style="width: 100%; height: 50%; background-image: url(res/material.png); background-position: center top; background-size: 100% 100%;"></canvas>
+	</div>
+	
+
+</div>
+	
+</body>
+
+</html>

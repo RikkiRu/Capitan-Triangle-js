@@ -1,0 +1,45 @@
+body, html {background-color: #DDDDDD; }
+	#canv 
+	{	
+		width: 100%;
+		height: 100%;
+		background-size: 100% 100%;
+	}
+	
+	#panel {position: fixed; width: 1200px; top: 20px;}
+	
+	#bC 
+	{   
+		background: url(res/button.png) top  no-repeat;
+		width: 50px;
+		height: 50px;
+		display: inline-block;
+		padding-left: 30px;
+	}
+	
+	#tbA, #tbD 
+	{
+		width: 170px;
+		height: 60px;
+		display: inline-block;
+		float: right;
+		padding-right: 3%;
+	}
+	
+	#tbA:hover, #tbD:hover, #bC:hover {background-position: bottom;}
+	
+	#tbA{background: url(res/attackC.png) top  no-repeat;}
+	#tbD{background: url(res/defendC.png) top  no-repeat;}
+	
+	#resurses
+	{
+		position: fixed;
+		width: 70px;
+		height: 150px;
+		top: 200px;
+	}
+	
+	#resurses:hover
+	{
+		padding-left: 5px;
+	}

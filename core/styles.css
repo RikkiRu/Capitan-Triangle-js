@@ -1,0 +1,62 @@
+body, html {background-color: #DDDDDD; }
+	#canv 
+	{	
+		width: 100%;
+		height: 100%;
+		background-size: 100% 100%;
+	}
+	
+	#panel {position: fixed; width: 1200px; top: 20px;}
+	
+	#bC 
+	{   
+		margin-left: 30px; 
+		float: left;
+		background-size: 100% 100%; 
+		background-position: center top;
+		width: 50px;
+		height: 50px;
+	}
+	
+	#bC:hover
+	{
+		background-color: #C3FF9B;
+	}
+	
+	#tbA, #tbD 
+	{
+		width: 170px;
+		height: 60px;
+		display: inline-block;
+		float: right;
+		padding-right: 3%;
+	}
+	
+	#tbA:hover, #tbD:hover {background-position: bottom;}
+	
+	#tbA{background: url(res/attackC.png) top  no-repeat;}
+	#tbD{background: url(res/defendC.png) top  no-repeat;}
+	
+	#InfoBar
+	{
+		position: fixed;
+		width: 100px;
+		height: 0px;
+		top: 70px;
+		background-image: url(res/ResInfo.png); 
+		background-position: center top; 
+		background-size: 100% 100%;
+	}
+	
+	#resurses
+	{
+		position: fixed;
+		width: 70px;
+		height: 150px;
+		top: 200px;
+	}
+	
+	#resurses:hover
+	{
+		padding-left: 5px;
+	}
