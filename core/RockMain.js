@@ -47,8 +47,6 @@ function writeInfo ()
 {
 	testAndWrite(money, 100, 140, 'money');
 	testAndWrite(material, 100, 140, 'material');
-	testAndWrite(rA, 180, 120, 'tbA');
-	testAndWrite(rD, 180, 120, 'tbD');
 }
 
 function renderFunc ()
@@ -83,12 +81,11 @@ function destroyClick()
 	weBuilding=false;
 	weDestroy=true;
 	curFollow.splice(0, curFollow.length);
-	var x = createObj (mouse.cx, mouse.cy, proto[8]);
+	var x = createObj (mouse.cx, baseH, proto[8]);
 	x.doF=
 	function()
 	{
 		this.x=mouse.cx-sizes.bw/2; 
-		this.y=mouse.cy-sizes.bh/2; 
 		if(!testObjs(this.x)) this.tex=proto[9].Tex;
 		else this.tex=proto[8].Tex;
 	};
@@ -181,7 +178,7 @@ function showInfo(n)
 	inf.style.left=(mouse.x-50).toString()+'px';
 	inf.style.height='50px';
 	
-	if(canBuildProto(proto[n-1])) inf.style.backgroundColor='green'; 
+	if(canBuildProto(proto[n-1])) inf.style.backgroundColor='#E2FFE7'; 
 	else inf.style.backgroundColor='red';
 	
 	write(proto[n-1].cMoney.toString(), 30, 130, 'InfoBar', false);

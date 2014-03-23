@@ -6,7 +6,7 @@ body, html {background-color: #DDDDDD; }
 		background-size: 100% 100%;
 	}
 	
-	#panel {position: fixed; width: 1200px; top: 20px;}
+	#panel {position: absolute; width: 1200px; top: 20px;}
 	
 	#bC 
 	{   
@@ -23,23 +23,10 @@ body, html {background-color: #DDDDDD; }
 		background-color: #C3FF9B;
 	}
 	
-	#tbA, #tbD 
-	{
-		width: 170px;
-		height: 60px;
-		display: inline-block;
-		float: right;
-		padding-right: 3%;
-	}
-	
-	#tbA:hover, #tbD:hover {background-position: bottom;}
-	
-	#tbA{background: url(res/attackC.png) top  no-repeat;}
-	#tbD{background: url(res/defendC.png) top  no-repeat;}
-	
 	#InfoBar
 	{
-		position: fixed;
+		border-radius: 5px 5px;
+		position: absolute;
 		width: 100px;
 		height: 0px;
 		top: 70px;
@@ -50,7 +37,7 @@ body, html {background-color: #DDDDDD; }
 	
 	#resurses
 	{
-		position: fixed;
+		position: absolute;
 		width: 70px;
 		height: 150px;
 		top: 200px;
@@ -59,4 +46,28 @@ body, html {background-color: #DDDDDD; }
 	#resurses:hover
 	{
 		padding-left: 5px;
+	}
+	
+	#apButton
+	{
+		right: 10px;
+		width: 100px; 
+		height: 50px; 
+		background-position: center top; 
+		background-size: 100% 100%;
+	}
+	
+	#apButton:hover
+	{
+		border-radius: 10px 10px;
+		background-color: #E2FFE7; 
+	}
+	
+	#attackPanel
+	{
+		top: 30px;
+		margin-right: 30px;
+		width: 100px;
+		height: 250px;
+		float: right;
 	}

@@ -1,6 +1,4 @@
 var baseH=700; //линия построек
-var rA=110; //attack rockets
-var rD=213; //defend
 
 var material=100; //ресурсы
 var money=100;
@@ -18,6 +16,15 @@ var curFollow=new Array();
 var weBuilding=false;
 var weDestroy=false;
 var tempBuild=0;
+
+var units=
+{
+	rA: 0,
+	rD: 0,
+	mru: 0,
+	aA: 0,
+	aD: 0
+}
 
 var sizes =
 {
